@@ -1,0 +1,79 @@
+
+apply plugin: 'com.android.application'
+
+
+android {
+    compileSdkVersion 30
+    aaptOptions {
+        noCompress "mov"  //表示不让aapt压缩的文件后缀
+    }
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+        applicationId 'com.wuhan.dongmaosyc'
+        buildConfigField "String", "AUTH_SECRET", '"4IDYaeiRaO70ZWL/Fmq/Yf19rWTkZzfZh1i6JTpVEUFfqIYdgYafMxzCo2iA1fmu0bIyM27BNTB/w6j9ceb2MitsOpo3O9qiXhTIFcC/hJeY/jb+iE7snL/P9z6e2OaR8xv3+kCWjouD897zCz1bXjNdH6ipq4LuKTkcs+PcwIzJSbHmWF3VUuo7Lyi+Fr3OtlFZvdDCnOKYe5Jd+J7bKIB4e8v/fJNX+BKuFJmpcDCfaxLIIdIeYzU5WnhyND/o/uULVff2EzIWCFpey0FaFQZWCMbtnHEWGQPqq9XYjnqwcRon03015g=="'
+    }
+
+    
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+            jniLibs.srcDirs = ['libs']
+            res.srcDirs = ['src/main/res']
+        }
+        
+    }
+
+    signingConfigs {
+        debug {
+            keyAlias 'dongmao.wuhan.com'
+            keyPassword 'dongmaokeji9999'
+            storeFile file('sig-adaptation/debug/dongmao.wuhan.com.keystore')
+            storePassword 'dongmaokeji9999'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+
+        
+    }
+
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled true
+            proguardFile file('proguard-rules.pro')
+            zipAlignEnabled false
+            multiDexEnabled true
+            
+        }
+
+        debug {
+            minifyEnabled false
+            zipAlignEnabled false
+            multiDexEnabled true
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
+    implementation 'com.android.support:appcompat-v7:23.2.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    def isLibsMavenDep = (System.getProperty("isMaven") != null)
+    if (!isLibsMavenDep) {
+        implementation project(':libs:main-release')
+        implementation project(':libs:logger-release')
+        
+    }
+
+    //uc的crash收集库，客户可自行选择是否需要集成
+    implementation 'com.ucweb.wpk:crashsdk:3.2.2.2'
+
+    
+    
+    
+}

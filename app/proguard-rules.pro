@@ -1,0 +1,7 @@
+-keepattributes Exceptions,InnerClasses,Signature,Deprecated,*Annotation*,EnclosingMethod
+-keep class android.app.ActivityThread {*;}
+-keep class android.os.SystemProperties {*;}
+-dontwarn android.support.v4.app.NotificationCompatGingerbread
+-dontwarn android.support.v4.app.NotificationCompatGingerbread
+-dontwarn android.support.v4.widget.SlidingPaneLayout
+-dontwarn android.support.v4.app.NotificationCompatBase
